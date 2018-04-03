@@ -1,4 +1,4 @@
 export class Card {
-    color: string;
-    value: number;
+  color: string;
+  value: number;
 }

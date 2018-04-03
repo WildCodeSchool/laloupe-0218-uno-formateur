@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
-import 'rxjs/Rx';
+import 'rxjs/add/operator/take';
 
 @Component({
   selector: 'app-home',
@@ -13,7 +13,7 @@ import 'rxjs/Rx';
 export class HomeComponent implements OnInit {
 
   constructor(private db: AngularFirestore, private router: Router) {
-    
+
   }
 
   ngOnInit() {
@@ -21,26 +21,26 @@ export class HomeComponent implements OnInit {
   }
 
   checkCards() {
-    let cardsCollection = this.db.collection('cards');
+    const cardsCollection = this.db.collection('cards');
     cardsCollection.valueChanges().take(1).subscribe(cards => {
       console.log(cards.length);
-      if (cards.length == 0) {
+      if (cards.length === 0) {
         this.generateCards();
       } else {
-        console.log("Cards collection already exists");
+        console.log('Cards collection already exists');
       }
-      this.router.navigate(["matchmaking"]);
+      this.router.navigate(['matchmaking']);
     });
   }
 
   generateCards() {
-    let cardsCollection = this.db.collection<Card>('cards');
-    let colors = ["red", "yellow", "green", "blue"];
+    const cardsCollection = this.db.collection<Card>('cards');
+    const colors = ['red', 'yellow', 'green', 'blue'];
 
-    for (let color of colors) {
+    for (const color of colors) {
       let i = 1;
       while (i < 10) {
-        let card = new Card();
+        const card = new Card();
         card.color = color;
         card.value = i;
         cardsCollection.add(JSON.parse(JSON.stringify(card)));

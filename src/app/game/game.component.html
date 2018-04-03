@@ -1,3 +1,43 @@
 <p>
   {{message}}
 </p>
+
+<div class="flexcol" *ngIf="isReady()">
+  <div class="flexrow">
+    <div class="item" *ngFor="let card of getCards(myPlayerId === 1 ? 0 : 1); let i = index">
+      <img class="card-back" src="assets/uno-back.png">
+    </div>
+  </div>
+  <div class="item">
+    <div class="card" [ngClass]="getCardClasses(getLastPlayed())">
+      <span class="inner">
+        <span class="mark">{{getLastPlayed().value}}</span>
+      </span>
+    </div>
+  </div>
+  <div class="item">
+    <p *ngIf="isMyTurn(); else elseBlock">
+      That's my turn !
+    </p>
+    <ng-template #elseBlock>
+      Wait the other to play
+    </ng-template>
+  </div>
+  <div class="item" *ngIf="isMyTurn()">
+    <button type="button" (click)="drawCard()">Pick new card</button>
+  </div>
+  <!-- <div class="item" *ngIf="isUno()">
+    <button type="button" (click)="uno()">Uno</button>
+    <button type="button" (click)="againstUno()">Against Uno</button>
+  </div> -->
+  <div class="flexrow">
+    <div class="item" *ngFor="let card of getCards(myPlayerId); let i = index">
+      <div class="card" [ngClass]="getCardClasses(card)" (click)="playCard(i)">
+        <span class="inner">
+          <span class="mark">{{card.value}}</span>
+        </span>
+      </div>
+    </div>
+  </div>
+
+</div>
