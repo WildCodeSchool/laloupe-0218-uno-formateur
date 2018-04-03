@@ -25,7 +25,7 @@ export class GameComponent implements OnInit {
     this.db
       .doc<Room>('rooms/' + this.roomId)
       .valueChanges()
-      .subscribe(room => {
+      .subscribe((room) => {
         this.room = room;
         this.myPlayerId = room.players[0].name === this.username ? 0 : 1;
         if (room.players.length === 2 && this.room.winner === undefined) {
@@ -51,7 +51,7 @@ export class GameComponent implements OnInit {
       .collection<Card>('cards')
       .valueChanges()
       .take(1)
-      .subscribe(deck => {
+      .subscribe((deck) => {
         this.shuffle(deck);
         const playerDecks = [[], []];
         let i = 1;
@@ -159,9 +159,8 @@ export class GameComponent implements OnInit {
   getLastPlayed(): Card {
     if (this.room && this.room.graveyard) {
       return this.room.graveyard[this.room.graveyard.length - 1];
-    } else {
-      return new Card();
     }
+    return new Card();
   }
 
   getCardClasses(card: Card): string[] {
@@ -173,8 +172,10 @@ export class GameComponent implements OnInit {
   }
 
   shuffle(a) {
-    let j, x, i;
-    for (i = a.length - 1; i > 0; i--) {
+    let j;
+    let x;
+    let i;
+    for (i = a.length - 1; i > 0; i -= 1) {
       j = Math.floor(Math.random() * (i + 1));
       x = a[i];
       a[i] = a[j];

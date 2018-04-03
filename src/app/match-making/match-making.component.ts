@@ -22,7 +22,7 @@ export class MatchMakingComponent implements OnInit {
   getRooms() {
     const roomsCollection = this.db.collection<Room>('rooms');
 
-    const snapshot = roomsCollection.snapshotChanges().take(1).subscribe(snapshot => {
+    const snapshot = roomsCollection.snapshotChanges().take(1).subscribe((snapshot) => {
       const player = new Player();
       player.name = 'user' + Math.floor(Math.random() * 1000);
       player.cards = [];

@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit {
 
   checkCards() {
     const cardsCollection = this.db.collection('cards');
-    cardsCollection.valueChanges().take(1).subscribe(cards => {
+    cardsCollection.valueChanges().take(1).subscribe((cards) => {
       console.log(cards.length);
       if (cards.length === 0) {
         this.generateCards();
@@ -44,7 +44,7 @@ export class HomeComponent implements OnInit {
         card.color = color;
         card.value = i;
         cardsCollection.add(JSON.parse(JSON.stringify(card)));
-        i++;
+        i += 1;
       }
     }
   }
