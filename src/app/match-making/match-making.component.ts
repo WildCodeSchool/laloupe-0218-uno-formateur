@@ -9,7 +9,7 @@ import 'rxjs/Rx';
 @Component({
   selector: 'app-match-making',
   templateUrl: './match-making.component.html',
-  styleUrls: ['./match-making.component.css']
+  styleUrls: ['./match-making.component.css'],
 })
 export class MatchMakingComponent implements OnInit {
 
@@ -20,31 +20,31 @@ export class MatchMakingComponent implements OnInit {
   }
 
   getRooms() {
-    let roomsCollection = this.db.collection<Room>('rooms');
+    const roomsCollection = this.db.collection<Room>('rooms');
 
-    let snapshot = roomsCollection.snapshotChanges().take(1).subscribe(snapshot => {
-      let player = new Player();
-      player.name = "user" + Math.floor(Math.random() * 1000);
+    const snapshot = roomsCollection.snapshotChanges().take(1).subscribe(snapshot => {
+      const player = new Player();
+      player.name = 'user' + Math.floor(Math.random() * 1000);
       player.cards = [];
 
-      for (let snapshotItem of snapshot) {
-        let roomId = snapshotItem.payload.doc.id;
-        let room = snapshotItem.payload.doc.data() as Room;
+      for (const snapshotItem of snapshot) {
+        const roomId = snapshotItem.payload.doc.id;
+        const room = snapshotItem.payload.doc.data() as Room;
 
-        if (room.players.length == 1) {
+        if (room.players.length === 1) {
           room.players.push(player);
-          this.db.doc("rooms/" + roomId).update(JSON.parse(JSON.stringify(room)));
-          this.router.navigate(["game", roomId, player.name]);
+          this.db.doc('rooms/' + roomId).update(JSON.parse(JSON.stringify(room)));
+          this.router.navigate(['game', roomId, player.name]);
           return;
         }
       }
 
-      let room = new Room();
+      const room = new Room();
       room.players = [player];
-      this.db.collection("rooms")
+      this.db.collection('rooms')
         .add(JSON.parse(JSON.stringify(room)))
         .then((doc) => {
-          this.router.navigate(["game", doc.id, player.name]);
+          this.router.navigate(['game', doc.id, player.name]);
         });
     });
   }

@@ -1,46 +1,46 @@
-import { Card } from "../models/card";
-import { Room } from "../models/room";
-import { AngularFirestore } from "angularfire2/firestore";
-import { ActivatedRoute } from "@angular/router";
-import { Component, OnInit } from "@angular/core";
+import { Card } from '../models/card';
+import { Room } from '../models/room';
+import { AngularFirestore } from 'angularfire2/firestore';
+import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: "app-game",
-  templateUrl: "./game.component.html",
-  styleUrls: ["./game.component.css"]
+  selector: 'app-game',
+  templateUrl: './game.component.html',
+  styleUrls: ['./game.component.css'],
 })
 export class GameComponent implements OnInit {
-  message = "Waiting for opponent";
+  message = 'Waiting for opponent';
   roomId: string;
   username: string;
   room: Room;
   myPlayerId: number;
 
-  constructor(private route: ActivatedRoute, private db: AngularFirestore) {}
+  constructor(private route: ActivatedRoute, private db: AngularFirestore) { }
 
   ngOnInit() {
-    this.roomId = this.route.snapshot.paramMap.get("id");
-    this.username = this.route.snapshot.paramMap.get("username");
+    this.roomId = this.route.snapshot.paramMap.get('id');
+    this.username = this.route.snapshot.paramMap.get('username');
 
     this.db
-      .doc<Room>("rooms/" + this.roomId)
+      .doc<Room>('rooms/' + this.roomId)
       .valueChanges()
       .subscribe(room => {
         this.room = room;
-        this.myPlayerId = room.players[0].name == this.username ? 0 : 1;
-        if (room.players.length == 2 && this.room.winner === undefined) {
-          this.message = "Starting game";
+        this.myPlayerId = room.players[0].name === this.username ? 0 : 1;
+        if (room.players.length === 2 && this.room.winner === undefined) {
+          this.message = 'Starting game';
           if (
-            room.players[0].name == this.username &&
-            (!room.deck || room.deck.length == 0)
+            room.players[0].name === this.username &&
+            (!room.deck || room.deck.length === 0)
           ) {
             this.distributeCards();
           }
         } else if (this.room.winner !== undefined) {
           if (this.room.winner === this.myPlayerId) {
-            this.message = "You win !!!";
+            this.message = 'You win !!!';
           } else {
-            this.message = "You loose !!!";
+            this.message = 'You loose !!!';
           }
         }
       });
@@ -48,16 +48,16 @@ export class GameComponent implements OnInit {
 
   distributeCards() {
     this.db
-      .collection<Card>("cards")
+      .collection<Card>('cards')
       .valueChanges()
       .take(1)
       .subscribe(deck => {
         this.shuffle(deck);
-        let playerDecks = [[], []];
+        const playerDecks = [[], []];
         let i = 1;
         while (i < 15) {
           playerDecks[i % 2].push(deck.pop());
-          i++;
+          i += 1;
         }
         this.room.deck = deck;
         this.room.turn = 1;
@@ -81,13 +81,13 @@ export class GameComponent implements OnInit {
     if (!this.canIPlay(this.getMe().cards[index])) {
       return;
     }
-    let card = this.getMe().cards.splice(index, 1)[0];
+    const card = this.getMe().cards.splice(index, 1)[0];
     this.putCard(card);
     this.endTurn();
   }
 
   updateRoom() {
-    this.db.doc<Room>("rooms/" + this.roomId).update(this.room);
+    this.db.doc<Room>('rooms/' + this.roomId).update(this.room);
   }
 
   endTurn() {
@@ -99,7 +99,7 @@ export class GameComponent implements OnInit {
   }
 
   drawCard() {
-    let newCard = this.room.deck.pop();
+    const newCard = this.room.deck.pop();
     this.getMe().cards.push(newCard);
     this.updateRoom();
     if (this.canIPlay(newCard)) {
@@ -146,7 +146,7 @@ export class GameComponent implements OnInit {
     return false;
   }
 
-  newGame() {}
+  newGame() { }
 
   isReady(): boolean {
     return this.room &&
@@ -165,7 +165,7 @@ export class GameComponent implements OnInit {
   }
 
   getCardClasses(card: Card): string[] {
-    return ["num-" + card.value, card.color];
+    return ['num-' + card.value, card.color];
   }
 
   getCards(index): Card[] {
@@ -173,7 +173,7 @@ export class GameComponent implements OnInit {
   }
 
   shuffle(a) {
-    var j, x, i;
+    let j, x, i;
     for (i = a.length - 1; i > 0; i--) {
       j = Math.floor(Math.random() * (i + 1));
       x = a[i];
