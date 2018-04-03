@@ -80,7 +80,8 @@ div {
 .card:after {
     bottom: 15px;
     right: 10px;
-    -webkit-transform: rotate(180deg)
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg);
 }
 
 .card.blue {
