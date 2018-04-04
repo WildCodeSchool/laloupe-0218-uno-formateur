@@ -14,7 +14,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 export class HomeComponent implements OnInit {
 
   constructor(private db: AngularFirestore,
-    private router: Router, public afAuth: AngularFireAuth) {
+              private router: Router, public afAuth: AngularFireAuth) {
 
   }
 
