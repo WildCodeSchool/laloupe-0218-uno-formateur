@@ -2,8 +2,7 @@ import { AuthService } from './../auth.service';
 import { Card } from '../models/card';
 import { Room } from '../models/room';
 import { AngularFirestore } from 'angularfire2/firestore';
-import { ActivatedRoute } from '@angular/router';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -17,9 +16,9 @@ export class GameComponent implements OnInit {
   room: Room;
 
   constructor(private authService: AuthService,
-              private router: Router,
-              private route: ActivatedRoute,
-              private db: AngularFirestore) { }
+    private router: Router,
+    private route: ActivatedRoute,
+    private db: AngularFirestore) { }
 
   ngOnInit() {
     this.roomId = this.route.snapshot.paramMap.get('id');
