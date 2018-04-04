@@ -21,7 +21,7 @@ export class AppComponent {
   }
 
   goToHome() {
-    this.router.navigate(['home']);
+    this.router.navigate(['']);
   }
 
   checkCards() {

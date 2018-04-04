@@ -12,6 +12,7 @@ p {
 
 .table {
     background-image: url("assets/tapis.jpg");
+    min-height: 100vh;
 }
 
 .centerRaw {
