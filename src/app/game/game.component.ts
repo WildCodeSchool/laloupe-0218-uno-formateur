@@ -16,8 +16,8 @@ export class GameComponent implements OnInit {
   room: Room;
 
   constructor(private authService: AuthService,
-    private route: ActivatedRoute,
-    private db: AngularFirestore) { }
+              private route: ActivatedRoute,
+              private db: AngularFirestore) { }
 
   ngOnInit() {
     this.roomId = this.route.snapshot.paramMap.get('id');
@@ -30,7 +30,7 @@ export class GameComponent implements OnInit {
         if (Object.keys(room.players).length === 2 && !this.room.winner) {
           this.message = 'Starting game';
           if (
-            Object.keys(room.players)[0] == this.myId &&
+            Object.keys(room.players)[0] === this.myId &&
             (!room.deck || room.deck.length === 0)
           ) {
             this.distributeCards();
@@ -136,11 +136,10 @@ export class GameComponent implements OnInit {
   }
 
   get opponentId(): string {
-    if (Object.keys(this.room.players)[0] == this.myId) {
+    if (Object.keys(this.room.players)[0] === this.myId) {
       return Object.keys(this.room.players)[1];
-    } else {
-      return Object.keys(this.room.players)[0];
     }
+    return Object.keys(this.room.players)[0];
   }
 
   get firstPlayer() {
