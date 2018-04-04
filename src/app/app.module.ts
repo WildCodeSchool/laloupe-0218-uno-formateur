@@ -1,3 +1,4 @@
+import { AuthService } from './auth.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AngularFireModule } from 'angularfire2';
@@ -15,7 +16,7 @@ import { LoginComponent } from './login/login.component';
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'game/:id/:username', component: GameComponent },
+  { path: 'game/:id', component: GameComponent },
   { path: 'matchmaking', component: MatchMakingComponent },
 ];
 
@@ -34,7 +35,9 @@ const appRoutes: Routes = [
     AngularFirestoreModule,
     AngularFireAuthModule,
   ],
-  providers: [],
+  providers: [
+    AuthService
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule { }
