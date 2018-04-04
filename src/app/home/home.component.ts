@@ -4,6 +4,7 @@ import { AngularFirestore } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
 import 'rxjs/add/operator/take';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 @Component({
   selector: 'app-home',
@@ -12,40 +13,23 @@ import 'rxjs/add/operator/take';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private db: AngularFirestore, private router: Router) {
+  constructor(private db: AngularFirestore,
+    private router: Router, public afAuth: AngularFireAuth) {
 
   }
 
   ngOnInit() {
-    this.checkCards();
+    // this.router.navigate(['matchmaking']);
   }
 
-  checkCards() {
-    const cardsCollection = this.db.collection('cards');
-    cardsCollection.valueChanges().take(1).subscribe((cards) => {
-      console.log(cards.length);
-      if (cards.length === 0) {
-        this.generateCards();
+  goToGame() {
+    this.afAuth.authState.take(1).subscribe((user) => {
+      if (!user) {
+        this.router.navigate(['login']);
       } else {
-        console.log('Cards collection already exists');
+        this.router.navigate(['matchmaking']);
       }
-      this.router.navigate(['matchmaking']);
     });
   }
 
-  generateCards() {
-    const cardsCollection = this.db.collection<Card>('cards');
-    const colors = ['red', 'yellow', 'green', 'blue'];
-
-    for (const color of colors) {
-      let i = 1;
-      while (i < 10) {
-        const card = new Card();
-        card.color = color;
-        card.value = i;
-        cardsCollection.add(JSON.parse(JSON.stringify(card)));
-        i += 1;
-      }
-    }
-  }
 }
