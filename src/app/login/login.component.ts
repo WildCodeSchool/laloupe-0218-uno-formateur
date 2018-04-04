@@ -12,7 +12,7 @@ export class LoginComponent implements OnInit {
 
   constructor(public afAuth: AngularFireAuth, private router: Router) {
     this.afAuth.authState.subscribe((user) => {
-      console.log(user);
+      // console.log(user);
       if (user) {
         this.router.navigate(['matchmaking']);
       }

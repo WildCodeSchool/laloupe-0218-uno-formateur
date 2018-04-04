@@ -22,14 +22,8 @@ export class HomeComponent implements OnInit {
     // this.router.navigate(['matchmaking']);
   }
 
-  goToGame() {
-    this.afAuth.authState.take(1).subscribe((user) => {
-      if (!user) {
-        this.router.navigate(['login']);
-      } else {
-        this.router.navigate(['matchmaking']);
-      }
-    });
+  goToLogin() {
+    this.router.navigate(['login']);
   }
 
 }
