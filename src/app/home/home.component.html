@@ -2,4 +2,16 @@
   Hello Dear, wanna play ?
 </p>
 
-<button mat-raised-button color="primary" (click)="goToLogin()">Play game</button>
+<mat-grid-list cols="2" rowHeight="2:1">
+  <mat-grid-tile>
+    <button mat-raised-button color="primary" (click)="goToLogin()">Play game</button>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <h1>
+      History
+    </h1>
+    <mat-list>
+      <mat-list-item *ngFor="let item of rooms"> {{item.winner === authService.authId? 'You win' : 'You loose'}} </mat-list-item>
+    </mat-list>
+  </mat-grid-tile>
+</mat-grid-list>

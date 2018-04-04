@@ -16,9 +16,9 @@ export class GameComponent implements OnInit {
   room: Room;
 
   constructor(private authService: AuthService,
-    private router: Router,
-    private route: ActivatedRoute,
-    private db: AngularFirestore) { }
+              private router: Router,
+              private route: ActivatedRoute,
+              private db: AngularFirestore) { }
 
   ngOnInit() {
     this.roomId = this.route.snapshot.paramMap.get('id');

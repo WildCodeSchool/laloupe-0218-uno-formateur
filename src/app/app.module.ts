@@ -6,7 +6,11 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { RouterModule, Routes } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule, MatCheckboxModule, MatToolbarModule, MatChipsModule } from '@angular/material';
+import {
+  MatButtonModule, MatCheckboxModule,
+  MatToolbarModule, MatChipsModule,
+  MatGridListModule, MatListModule,
+} from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
@@ -40,6 +44,8 @@ const appRoutes: Routes = [
     MatButtonModule,
     MatToolbarModule,
     MatCheckboxModule,
+    MatGridListModule,
+    MatListModule,
     MatChipsModule,
   ],
   providers: [
