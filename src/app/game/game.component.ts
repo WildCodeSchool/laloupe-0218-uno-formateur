@@ -3,6 +3,7 @@ import { Card } from '../models/card';
 import { Room } from '../models/room';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -16,6 +17,7 @@ export class GameComponent implements OnInit {
   room: Room;
 
   constructor(private authService: AuthService,
+              private router: Router,
               private route: ActivatedRoute,
               private db: AngularFirestore) { }
 
@@ -168,6 +170,10 @@ export class GameComponent implements OnInit {
   }
 
   newGame() { }
+
+  goToHome() {
+    this.router.navigate(['home']);
+  }
 
   isReady(): boolean {
     return this.room && this.room.turn && !this.room.winner

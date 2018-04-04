@@ -6,7 +6,6 @@ import { AngularFirestore } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Rx';
 import { Router } from '@angular/router';
-import 'rxjs/Rx';
 
 @Component({
   selector: 'app-match-making',
