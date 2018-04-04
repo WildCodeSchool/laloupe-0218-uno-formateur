@@ -1,9 +1,22 @@
 @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:900);
 div {
-    outline: 2px solid white;
+    /* outline: 2px solid white; */
     /* <-- just for demonstration */
     min-height: 50px;
     /* <-- just for demonstration */
+}
+
+p {
+    color: #fff;
+}
+
+.table {
+    background-image: url("assets/tapis.jpg");
+}
+
+.centerRaw {
+    align-items: center;
+    justify-content: center;
 }
 
 .flexrow {
@@ -28,8 +41,8 @@ div {
 }
 
 .card {
-    width: 116px;
-    height: 178px;
+    /* width: 116px; */
+    /* height: 178px; */
     float: left;
     background: #fff;
     border-radius: 5px;

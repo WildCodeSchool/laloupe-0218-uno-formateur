@@ -1,31 +1,37 @@
+import { AuthService } from './../auth.service';
 import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
-import { AngularFireAuth } from 'angularfire2/auth';
-import * as firebase from 'firebase/app';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
 
-  constructor(public afAuth: AngularFireAuth, private router: Router) {
-    this.afAuth.authState.subscribe((user) => {
-      // console.log(user);
+  private authSubscription: Subscription;
+
+  constructor(public authService: AuthService, private router: Router) { }
+
+  ngOnInit() {
+    this.authSubscription = this.authService.authState.subscribe((user) => {
       if (user) {
         this.router.navigate(['matchmaking']);
       }
     });
   }
-  login() {
-    this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
 
+  ngOnDestroy() {
+    this.authSubscription.unsubscribe();
   }
+
+  login() {
+    this.authService.login();
+  }
+
   logout() {
-    this.afAuth.auth.signOut();
-  }
-  ngOnInit() {
+    this.authService.logout();
   }
 
 }

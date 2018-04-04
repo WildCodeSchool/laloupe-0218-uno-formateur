@@ -1,9 +1,12 @@
+import { AuthService } from './auth.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { RouterModule, Routes } from '@angular/router';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonModule, MatCheckboxModule, MatToolbarModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
@@ -15,7 +18,7 @@ import { LoginComponent } from './login/login.component';
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'game/:id/:username', component: GameComponent },
+  { path: 'game/:id', component: GameComponent },
   { path: 'matchmaking', component: MatchMakingComponent },
 ];
 
@@ -29,12 +32,18 @@ const appRoutes: Routes = [
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     RouterModule.forRoot(appRoutes),
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
+    MatButtonModule,
+    MatToolbarModule,
+    MatCheckboxModule,
   ],
-  providers: [],
+  providers: [
+    AuthService,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

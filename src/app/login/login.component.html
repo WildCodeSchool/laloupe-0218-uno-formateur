@@ -2,7 +2,7 @@
   Join us in the Uno fight !
 </p>
 
-<div *ngIf="afAuth.authState | async as user; else showLogin">
+<div *ngIf="authService.authState | async as user; else showLogin">
   <h1>Hello {{ user.displayName }}!</h1>
   <button (click)="logout()">Logout</button>
 </div>
