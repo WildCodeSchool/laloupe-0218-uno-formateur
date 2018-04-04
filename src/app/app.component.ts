@@ -20,6 +20,10 @@ export class AppComponent {
     this.checkCards();
   }
 
+  goToHome() {
+    this.router.navigate(['home']);
+  }
+
   checkCards() {
     const cardsCollection = this.db.collection('cards');
     cardsCollection.valueChanges().take(1).subscribe((cards) => {

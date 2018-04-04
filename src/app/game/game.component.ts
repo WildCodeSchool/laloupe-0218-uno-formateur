@@ -29,12 +29,14 @@ export class GameComponent implements OnInit {
       .subscribe((room) => {
         this.room = room;
         if (Object.keys(room.players).length === 2 && !this.room.winner) {
-          this.message = 'Starting game';
           if (
             Object.keys(room.players)[0] === this.myId &&
             (!room.deck || room.deck.length === 0)
           ) {
+            this.message = 'Distributing cards, please wait';
             this.distributeCards();
+          } else if (room.deck) {
+            this.message = 'Starting game';
           }
         } else if (this.room.winner) {
           if (this.room.winner === this.myId) {
@@ -169,10 +171,6 @@ export class GameComponent implements OnInit {
   }
 
   newGame() { }
-
-  goToHome() {
-    this.router.navigate(['home']);
-  }
 
   isReady(): boolean {
     return this.room && this.room.turn && !this.room.winner
